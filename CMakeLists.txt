@@ -120,6 +120,15 @@ find_package(CustomBlas REQUIRED)
 find_package(CustomLapack REQUIRED)
 list(APPEND PKG_CONFIG_LIBS_PRIVATE ${BLAS_LIBRARY} ${LAPACK_LIBRARY})
 
+# MIMIC integration
+if(WITH_MIMIC)
+  find_package(MPI 2.1 REQUIRED)
+  find_package(CustomMimic REQUIRED CXX)
+  include_directories(SYSTEM ${MIMIC_INCLUDE_DIR})
+  list(APPEND EXTRA_LIBS Mimic::Mimic)
+  list(APPEND PKG_CONFIG_REQUIRES ${MIMIC_LIBRARY})
+endif()
+
 if(WITH_ARPACK)
   find_package(CustomArpack REQUIRED)
   list(APPEND PKG_CONFIG_REQUIRES arpack)

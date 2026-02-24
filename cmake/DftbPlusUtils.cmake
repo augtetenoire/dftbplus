@@ -78,6 +78,11 @@ function (dftbp_add_fypp_defines fyppflags)
     list(APPEND _fyppflags -DWITH_PLUMED)
   endif()
 
+  # MIMIC integration
+  if(WITH_MIMIC)
+    list(APPEND _fyppflags -DWITH_MIMIC)
+  endif()
+
   if(WITH_CHIMES)
     list(APPEND _fyppflags -DWITH_CHIMES)
   endif()

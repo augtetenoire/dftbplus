@@ -15,6 +15,7 @@ set(DftbPlus_WITH_ARPACK @WITH_ARPACK@)
 set(DftbPlus_WITH_SDFTD3 @WITH_SDFTD3@)
 set(DftbPlus_WITH_MBD @WITH_MBD@)
 set(DftbPlus_WITH_PLUMED @WITH_PLUMED@)
+set(DftbPlus_WITH_MIMIC @WITH_MIMIC@)
 set(DftbPlus_WITH_CHIMES @WITH_CHIMES@)
 set(DftbPlus_WITH_API @WITH_API@)
 set(DftbPlus_WITH_PYTHON @WITH_PYTHON@)
@@ -71,6 +72,11 @@ if(NOT TARGET DftbPlus::DftbPlus)
 
   if(DftbPlus_WITH_PLUMED AND NOT TARGET Plumed::Plumed)
     find_dependency(CustomPlumed)
+  endif()
+
+  # MIMIMC integration
+  if(DftbPlus_WITH_MIMIC AND NOT TARGET Mimic::Mimic)
+    find_dependency(CustomMimic)
   endif()
 
   if(DftbPlus_WITH_MBD AND NOT TARGET Mbd::Mbd)

@@ -17,10 +17,17 @@
 module dftbp_common_globalenv
   use, intrinsic :: iso_fortran_env, only : error_unit, output_unit
 #:if WITH_MPI
-  use mpi, only : MPI_COMM_WORLD
+  use mpi, only : MPI_COMM_WORLD, mpi_comm_size, mpi_comm_rank
   use dftbp_extlibs_mpifx, only : MPI_THREAD_FUNNELED, mpifx_abort, mpifx_barrier, mpifx_comm,&
       & mpifx_finalize, mpifx_init_thread
 #:endif
+!AT
+!!!
+#:if WITH_MIMIC
+  use mcl, only: mcl_initialize, mcl_is_initialized, mcl_abort
+#:endif
+!!!
+
   implicit none
 
   private
@@ -95,6 +102,8 @@ contains
 
   #:if WITH_MPI
     integer :: mpiComm0
+    !AT
+    integer :: mpi_size, mpi_rank, ierror
   #:endif
 
     if (present(outputUnit)) then
@@ -117,6 +126,20 @@ contains
       mpiComm0 = MPI_COMM_WORLD
       call mpifx_init_thread(requiredThreading=MPI_THREAD_FUNNELED)
     end if
+    
+    !AT
+    !!!
+    call mpi_comm_size(mpiComm0, mpi_size, ierror)
+    call mpi_comm_rank(mpiComm0, mpi_rank, ierror)
+    print *,'AUGUSTE size and rank: ', mpi_size, mpi_rank, ierror
+    
+    call mcl_initialize(mpiComm0)
+    call mpi_comm_size(mpiComm0, mpi_size, ierror)
+    call mpi_comm_rank(mpiComm0, mpi_rank, ierror)
+    print *,'AUGUSTE size and rank: ', mpi_size, mpi_rank, ierror
+    
+    stop
+    !!!
 
     call globalMpiComm%init(commid=mpiComm0)
     if (globalMpiComm%lead) then

@@ -128,6 +128,11 @@ if(WITH_PLUMED)
   target_link_libraries(dftbplus PRIVATE Plumed::Plumed)
 endif()
 
+# MIMIC integration
+if(WITH_MIMIC)
+  target_link_libraries(dftbplus PRIVATE Mimic::Mimic)
+endif()
+
 if(WITH_CHIMES)
   target_link_libraries(dftbplus PUBLIC ChimesCalc::ChimesCalc_Fortran)
 endif()

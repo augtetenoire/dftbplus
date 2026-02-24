@@ -37,6 +37,10 @@ set(WITH_MBD TRUE CACHE BOOL "Whether MBD library should be included" FORCE)
 set(WITH_PLUMED TRUE CACHE BOOL
   "Whether metadynamics via the PLUMED2 library should be allowed for" FORCE)
 
+# MIMIMC integration
+set(WITH_MIMIC TRUE CACHE BOOL
+  "Whether MiMiC libraries should be link to to QM/MM scheme calculations" FORCE)
+
 set(WITH_CHIMES TRUE CACHE BOOL
   "Whether repulsive corrections via the ChIMES library should be enabled" FORCE)
 

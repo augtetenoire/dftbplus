@@ -27,6 +27,7 @@
 #:set WITH_ARPACK = defined('WITH_ARPACK')
 #:set WITH_PARPACK = WITH_ARPACK and WITH_MPI
 #:set WITH_PLUMED = defined('WITH_PLUMED')
+#:set WITH_MIMIC = defined('WITH_MIMIC')
 #:set WITH_TRANSPORT = defined('WITH_TRANSPORT')
 #:set WITH_POISSON = defined('WITH_POISSON')
 #:set WITH_SDFTD3 = defined('WITH_SDFTD3')

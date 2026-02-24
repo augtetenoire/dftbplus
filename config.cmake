@@ -43,6 +43,9 @@ option(WITH_MBD "Whether DFTB+ should be built with many-body-dispersion support
 
 option(WITH_PLUMED "Whether metadynamics via the PLUMED2 library should be allowed for" FALSE)
 
+# MIMIMC integration
+option(WITH_MIMIC "Whether MiMiC libraries should be link to to QM/MM scheme calculations" FALSE)
+
 option(WITH_CHIMES "Whether repulsive corrections via the ChIMES library should be enabled" FALSE)
 
 option(WITH_API "Whether public API should be included and the DFTB+ library installed" TRUE)
