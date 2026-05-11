@@ -449,6 +449,9 @@ module dftbp_dftbplus_initprogram
     !> Optimise lattice isotropically
     logical :: tLatOptIsotropic
 
+    !> Is this a MIMIC QM/MM calculation
+    logical :: tMIMIC
+
     !> Is this a MD calculation?
     logical :: tMD
 
@@ -1936,6 +1939,7 @@ contains
 
     this%tAppendGeo = input%ctrl%tAppendGeo
     this%isSccConvRequired = input%ctrl%isSccConvRequired
+    ! this%tMIMIC = input%ctrl%tMIMIC
     this%tMD = input%ctrl%tMD
     if (this%tMD) this%mdOutput = input%ctrl%mdOutput
     this%tDerivs = input%ctrl%tDerivs
@@ -3301,6 +3305,9 @@ contains
       case default
         call error("Unknown thermostat mode")
       end select
+    
+    elseif (input%ctrl%tMIMIC) then
+      write(stdOut,"('Mode:',T30,A,/,T30,A)") "file dftbp/dftbplus/initprogram.f90 mimic control type"
 
     elseif (this%isGeoOpt .or. allocated(this%geoOpt)) then
 

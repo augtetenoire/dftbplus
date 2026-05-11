@@ -453,6 +453,7 @@ contains
     ctrl%tLatOpt = .false.
 
     ctrl%iGeoOpt = geoOptTypes%none
+    ctrl%tMIMIC = .false.
     ctrl%tMD = .false.
     ctrl%tForces = .false.
     ctrl%tSetFillingTemp = .false.
@@ -474,6 +475,7 @@ contains
     case ("none")
       modeName = ""
       continue
+
     case ("geometryoptimisation")
       modeName = "geometry optimisation"
 
@@ -603,6 +605,18 @@ contains
       call getChildValue(node, "Delta", ctrl%deriv2ndDelta, 1.0E-4_dp, &
           & modifier=modifier, child=field)
       call convertUnitHsd(char(modifier), lengthUnits, field, ctrl%deriv2ndDelta)
+
+    !!!
+    ! MIMIC implementations
+    case ('mimic')
+      modeName = "Driver to steer DFTB+ to the MiMiC loop for QM/MM type modeling."
+      print *, 'Hello MIMIC.'
+      print *, 'parser.f90 mimic case in readDriver subroutine'
+      ctrl%tMIMIC = .true.
+      ctrl%tForces = .true.
+      
+      ! call mimicloop()
+    !!!
 
     case ("velocityverlet")
       ! molecular dynamics
@@ -4066,6 +4080,10 @@ contains
         ctrl%restartFreq = 0
       end if
     end if
+    ! if (ctrl%MIMIC) then
+    !   print *, 'MIMIC parser.f90 readOptions subroutine'
+    !   ! no option yet
+    ! end if
     if (ctrl%tMD) then
       allocate(ctrl%mdOutput)
       call getChildValue(node, "MDOutput", value1, "", child=child, allowEmptyValue=.true.,&
@@ -5608,6 +5626,11 @@ contains
         end select
 
       end if
+
+      ! AT: I think I do not need this. I would like to load the normal hamiltonian like in single point calculation. But I should probably do this with MIMIC loop.
+      ! if (ctrl%MIMIC) then
+        ! continue
+      ! end if
 
       if (ctrl%tMD) then
         if (ctrl%thermostatInp%thermostatType /= thermostatTypes%dummy) then
@@ -7761,6 +7784,10 @@ contains
     call getChildValue(child, "OutputFile", buffer, "ESP.dat")
     ctrl%elStatPotentialsInp%espOutFile = unquote(char(buffer))
     ctrl%elStatPotentialsInp%tAppendEsp = .false.
+    ! AT: I think I do not need this.
+    ! if (ctrl%MIMIC) then
+      ! continue
+    ! end if
     if (ctrl%isGeoOpt .or. ctrl%tMD) then
       call getChildValue(child, "AppendFile", ctrl%elStatPotentialsInp%tAppendEsp, .false.)
     end if

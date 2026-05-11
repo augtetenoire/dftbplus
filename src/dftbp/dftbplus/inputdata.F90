@@ -284,6 +284,8 @@ module dftbp_dftbplus_inputdata
     !> 1st derivative finite difference step
     real(dp) :: deriv1stDelta = 0.0_dp
 
+    !> MIMIC QM/MM
+    logical :: tMIMIC = .false.
 
     !> Molecular dynamics
     logical :: tMD = .false.

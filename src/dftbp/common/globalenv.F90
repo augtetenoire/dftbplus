@@ -131,14 +131,16 @@ contains
     !!!
     call mpi_comm_size(mpiComm0, mpi_size, ierror)
     call mpi_comm_rank(mpiComm0, mpi_rank, ierror)
+    print *, 'initial MPI communicator'
     print *,'AUGUSTE size and rank: ', mpi_size, mpi_rank, ierror
     
     call mcl_initialize(mpiComm0)
     call mpi_comm_size(mpiComm0, mpi_size, ierror)
     call mpi_comm_rank(mpiComm0, mpi_rank, ierror)
+    print *, 'split MPI communicator'
     print *,'AUGUSTE size and rank: ', mpi_size, mpi_rank, ierror
     
-    stop
+    ! stop
     !!!
 
     call globalMpiComm%init(commid=mpiComm0)
