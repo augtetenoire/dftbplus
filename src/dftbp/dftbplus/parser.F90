@@ -96,8 +96,14 @@ module dftbp_dftbplus_parser
 #:if WITH_TRANSPORT
   use dftbp_transport_negfvars, only : ContactInfo, TElPh, TNEGFGreenDensInfo, TNEGFTunDos
 #:endif
+#:if WITH_MIMIC
+  use mimic_loop, only : do_mimic_loop
+#:endif
   use dftbp_transport_negfvars, only : TTransPar
   implicit none
+
+
+
 
   private
   public :: parserVersion, rootTag
@@ -615,7 +621,7 @@ contains
       ctrl%tMIMIC = .true.
       ctrl%tForces = .true.
       
-      ! call mimicloop()
+      call do_mimic_loop()
     !!!
 
     case ("velocityverlet")
