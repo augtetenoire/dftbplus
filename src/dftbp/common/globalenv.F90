@@ -140,7 +140,6 @@ contains
     print *, 'split MPI communicator'
     print *,'AUGUSTE size and rank: ', mpi_size, mpi_rank, ierror
     
-    ! stop
     !!!
 
     call globalMpiComm%init(commid=mpiComm0)
@@ -210,6 +209,7 @@ contains
     else
       errorCode0 = errorCode
     end if
+    CALL mcl_abort(errorCode0, error)
 
   #:if WITH_MPI
     call mpifx_abort(globalMpiComm, errorCode0, error)

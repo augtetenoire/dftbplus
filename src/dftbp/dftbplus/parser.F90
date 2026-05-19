@@ -616,7 +616,7 @@ contains
     ! MIMIC implementations
     case ('mimic')
       modeName = "Driver to steer DFTB+ to the MiMiC loop for QM/MM type modeling."
-      print *, 'Hello MIMIC.'
+      print *, 'Hello MIMIC from parser'
       print *, 'parser.f90 mimic case in readDriver subroutine'
       ctrl%tMIMIC = .true.
       ctrl%tForces = .true.
